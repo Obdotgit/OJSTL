@@ -585,7 +585,7 @@
         // Label
         const labelEl = document.createElement('label');
         labelEl.htmlFor = inputId;
-        labelEl.textContent = inputLabel;
+        labelEl.innerHTML = inputLabel;
 
         // Container
         const container = document.createElement('div');
