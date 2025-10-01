@@ -550,6 +550,93 @@
         return instance;
     }
 
+        /**
+     * Show a modal prompt with an input field.
+     * @param {string} message - The message or label for the input.
+     * @param {Object} options - Modal options, plus input options.
+     *   options.inputType: HTML input type (default 'text')
+     *   options.inputInitial: Initial value (default '')
+     *   options.inputPlaceholder: Input placeholder (default '')
+     *   options.inputLabel: Label for input (default: message arg)
+     *   options.resolveOnClose: Always true for prompt.
+     * @returns {Promise<string|null>} Promise resolves with value or null if cancelled.
+     */
+    function promptModal(message, options = {}) {
+        const opts = normalizeOptions({
+            ...options,
+            resolveOnClose: true
+        });
+
+        // Input element
+        const inputType = options.inputType || 'text';
+        const inputInitial = options.inputInitial || '';
+        const inputPlaceholder = options.inputPlaceholder || '';
+        const inputLabel = options.inputLabel || message || opts.title;
+
+        const inputId = `cg-modal-input-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+        const inputEl = document.createElement('input');
+        inputEl.type = inputType;
+        inputEl.value = inputInitial;
+        inputEl.placeholder = inputPlaceholder;
+        inputEl.id = inputId;
+        inputEl.className = 'cg-modal-prompt-input';
+        inputEl.style = 'width: 100%; margin-top: 8px;';
+
+        // Label
+        const labelEl = document.createElement('label');
+        labelEl.htmlFor = inputId;
+        labelEl.textContent = inputLabel;
+
+        // Container
+        const container = document.createElement('div');
+        container.appendChild(labelEl);
+        container.appendChild(inputEl);
+
+        // Result holder
+        let result = null;
+
+        // Modal
+        const modalInstance = buildModal(container, {
+            ...opts,
+            autoFocusSelector: '.cg-modal-prompt-input',
+            onClose: (ok) => {
+                if (!ok) result = null;
+                if (typeof opts.onClose === 'function') {
+                    opts.onClose(ok ? result : null);
+                }
+            }
+        });
+
+        // Intercept close to return value or null
+        if (modalInstance.promise) {
+            // Listen for Enter key on input
+            inputEl.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    result = inputEl.value;
+                    modalInstance.hide(true);
+                }
+            });
+
+            // Listen for modal close button
+            // Already closes with false (cancel) or true (OK)
+            // Override close button to treat as "OK"
+            const closeBtns = modalInstance.dialogEl.querySelectorAll('.cg-modal-close');
+            closeBtns.forEach(btn => {
+                btn.removeEventListener('click', btn.onclick);
+                btn.onclick = () => {
+                    result = inputEl.value;
+                    modalInstance.hide(true);
+                };
+            });
+
+            // Focus input
+            setTimeout(() => inputEl.focus(), opts.animation ? opts.animationDuration : 0);
+
+            return modalInstance.promise.then(ok => (ok ? result : null));
+        }
+        return Promise.resolve(null);
+    }
+
     const delta = {
         tick: function (update, render) {
             var lastUpdate = Date.now();
@@ -638,6 +725,14 @@
         getAll() {
             return Array.from(modals);
         }
+
+        /**
+         * Show a prompt modal with input
+         * @param {string} message
+         * @param {Object} options
+         * @returns {Promise<string|null>}
+         */
+        prompt: promptModal,
     };
 
     window.delta = delta;
