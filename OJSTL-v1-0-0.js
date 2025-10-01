@@ -724,7 +724,7 @@
          */
         getAll() {
             return Array.from(modals);
-        }
+        },
 
         /**
          * Show a prompt modal with input
