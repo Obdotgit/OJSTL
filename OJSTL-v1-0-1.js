@@ -1,5 +1,5 @@
 /**
- * Obdotgit's JavaScript Tool Library
+ * Obdotgit's JavaScript Tool Library v1.0.1
  * 
  * copyright 2025 Obdotgit; CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
  * 
@@ -691,6 +691,12 @@
         }
     };
 
+    const ir = {
+        phi: (1+Math.sqrt(5))/2,
+        pi: Math.PI,
+        e: Math.E;
+    };
+
     // Public API
     window.modal = {
         /**
@@ -738,4 +744,6 @@
     window.delta = delta;
 
     window.wait = wait;
+
+    window.ir = ir;
 })();
