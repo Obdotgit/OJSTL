@@ -2,7 +2,7 @@
 
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0%201.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
 [![Author: Obdotgit](https://img.shields.io/badge/Author-Obdotgit-blue.svg)](https://github.com/Obdotgit/OJSTL)
-[![OJSTL: v1.0.1](https://img.shields.io/badge/OJSTL-v1.0.1-red.svg)](https://github.com/Obdotgit)
+[![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-red.svg)](https://github.com/Obdotgit)
 
 OJSTL is a lightweight, dependency-free JavaScript utility library that provides a collection of tools for user interface modals, precise delta-timing, and asynchronous waits.  
 It’s written in pure vanilla JS and can be used in both **browser** and **Node.js (browser-emulated)** environments.
