@@ -23,13 +23,13 @@ It’s written in pure vanilla JS and can be used in both **browser** and **Node
 
 ### Option 1 — Direct include
 ```html
-<script src="OJSTL-v1-0-1.js"></script>
+<script src="OJSTL-v1-0-2.js"></script>
 ````
 
 ### Option 2 — Local import (ESM)
 
 ```js
-import './OJSTL-v1-0-1.js';
+import './OJSTL-v1-0-2.js';
 ```
 
 After loading, the following globals become available:
@@ -211,4 +211,4 @@ See [LICENSE](https://creativecommons.org/publicdomain/zero/1.0/) for full detai
 
 ---
 
-> *OJSTL v1.0.1 — a minimal but mighty JS utility toolkit.*
+> *OJSTL v1.0.2 — a minimal but mighty JS utility toolkit.*
