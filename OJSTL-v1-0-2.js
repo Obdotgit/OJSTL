@@ -1,5 +1,5 @@
 /**
- * Obdotgit's JavaScript Tool Library v1.0.1
+ * Obdotgit's JavaScript Tool Library v1.0.2
  * 
  * copyright 2025 Obdotgit; CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
  * 
@@ -409,6 +409,8 @@
                 });
             });
         } else {
+            overlayEl.style.transition = 'none';
+            dialogEl.style.transition = 'none';
             overlayEl.classList.add('cg-modal-overlay-open');
             dialogEl.classList.add('cg-modal-open');
             focusInitial();
@@ -622,7 +624,6 @@
             // Override close button to treat as "OK"
             const closeBtns = modalInstance.dialogEl.querySelectorAll('.cg-modal-close');
             closeBtns.forEach(btn => {
-                btn.removeEventListener('click', btn.onclick);
                 btn.onclick = () => {
                     result = inputEl.value;
                     modalInstance.hide(true);
@@ -675,7 +676,8 @@
         s: (s) => wait.ms(s * 1000),
         m: (m) => wait.s(m * 60),
         h: (h) => wait.m(h * 60),
-        frames: (frames = 1) => {
+        d: (d) => wait.h(d * 24),
+        frame: (frames = 1) => {
             return new Promise(resolve => {
                 let count = 0;
                 const frameHandler = () => {
@@ -694,7 +696,7 @@
     const ir = {
         phi: (1+Math.sqrt(5))/2,
         pi: Math.PI,
-        e: Math.E;
+        e: Math.E
     };
 
     // Public API
